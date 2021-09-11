@@ -1,5 +1,9 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import * as Yup from "yup";
+import { useState } from "react";
+import { useAtom, atom } from "jotai"
+
+export const contractStateGive = atom({status:"",time:'0 seconds'})
 
 const VestingSchema = Yup.object().shape({
   beneficiary: Yup.number().required().positive(),
@@ -17,8 +21,11 @@ const VestingSchema = Yup.object().shape({
     .integer(),
 });
 
-export const VestingGive = () => (
- 
+const VestingGive = () => {
+  const [giveContractState,setGiveContractState] = useAtom(contractStateGive)
+
+
+  return (
     <Formik
       initialValues={{
         beneficiary: "",
@@ -27,6 +34,7 @@ export const VestingGive = () => (
       }}
       validationSchema={VestingSchema}
       onSubmit={(values) => {
+        setGiveContractState({status:"Waiting", time:"4 seconds"})
         console.log(values);
       }}
     >
@@ -63,4 +71,6 @@ export const VestingGive = () => (
         </div>
       )}
     </Formik>
-);
+)};
+
+export default VestingGive;
