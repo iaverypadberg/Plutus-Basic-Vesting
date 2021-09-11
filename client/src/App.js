@@ -4,7 +4,7 @@ import Home from "./pages/Home"
 import Protected from "./Protected"
 import NavBar from "./nav/NavBar"
 import Contracts from "./pages/Contracts"
-import { Vesting } from "./pages/contracts/Vesting"
+import VestingMain from "./pages/contracts/VestingMain"
 
 
 import { useContext, useState } from "react"
@@ -22,7 +22,7 @@ function App() {
 
       <Protected path="/contracts" exact component={Contracts}/>
       <Protected path="/home" component={Home}/>
-      <Protected path="/contracts/vesting" component={Vesting}/>
+      <Protected path="/contracts/vesting" component={VestingMain}/>
 
     </Router>
   );
