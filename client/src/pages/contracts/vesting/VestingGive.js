@@ -1,9 +1,7 @@
 import { Formik, Form, Field, useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { useAtom, atom } from "jotai"
-
-export const contractStateGive = atom({status:"",time:'0 seconds'})
+import CounterGive from "../../../utils/CounterGive";
 
 const VestingSchema = Yup.object().shape({
   beneficiary: Yup.number().required().positive(),
@@ -22,8 +20,8 @@ const VestingSchema = Yup.object().shape({
 });
 
 const VestingGive = () => {
-  const [giveContractState,setGiveContractState] = useAtom(contractStateGive)
-
+  const contractStateGive = { status: "Idle" };
+  const [giveContractState, setGiveContractState] = useState(contractStateGive);
 
   return (
     <Formik
@@ -34,14 +32,17 @@ const VestingGive = () => {
       }}
       validationSchema={VestingSchema}
       onSubmit={(values) => {
-        setGiveContractState({status:"Waiting", time:"4 seconds"})
+        setGiveContractState({ status: "waiting" });
         console.log(values);
       }}
     >
       {({ errors, touched }) => (
-        <div className="flex flex-col justify-center items-center h-80 w-96 rounded-lg bg-blue-200">
-          <Form className="flex flex-col justify-center items-center">
-            <h1 className="text-lg text-light-gray m-2">Vesting Give</h1>
+        <div className="flex flex-col justify-center items-center h-5/6 w-3/5 rounded-lg bg-blue-300">
+          <h1 className="text-lg text-light-gray m-4 font-bold">
+              Vesting Give
+            </h1>
+          <Form className="flex flex-col justify-center m-3 items-center bg-blue-100 h-2/5 w-3/4 rounded-lg">
+            
             <Field
               className="border-2 m-1"
               placeholder="beneficiary(hex)"
@@ -52,7 +53,11 @@ const VestingGive = () => {
             <div>{errors.beneficiary}</div>
           ) : null} */}
 
-            <Field className="border-2 m-1" placeholder="amount(int)" name="amount" />
+            <Field
+              className="border-2 m-1"
+              placeholder="amount(int)"
+              name="amount"
+            />
 
             {/* {errors.amount && touched.amount ? <div>{errors.amount}</div> : null} */}
 
@@ -66,11 +71,85 @@ const VestingGive = () => {
             <div>{errors.deadline}</div>
           ) : null} */}
 
-            <button type="submit" className="rounded-md p-2 bg-blue-300 hover:bg-blue-400 hover:cursor-pointer text-light-gray">Submit</button>
+            <button
+              type="submit"
+              className="rounded-md m-2 p-2 bg-blue-400 hover:bg-blue-500 hover:cursor-pointer text-light-gray"
+            >
+              Submit
+            </button>
           </Form>
+
+          <div className="flex flex-col m-3 items-center justify-center h-2/5 w-3/4 bg-blue-100 rounded-lg">
+            <div className="flex flex-col items-center justify-center h-2/5 w-3/4">
+              {/* <div className="flex flex-row justify-center items-center m-3 text-lg rounded-lg  h-1/4 w-">
+                <label htmlFor="status">Transaction Status</label>
+              </div> */}
+
+              <h1 className="text-lg text-light-gray m-4 font-bold">
+                Transaction Status
+              </h1>
+
+              <div className="flex flex-row justify-center items-center m-3 bg-light-gray rounded-lg  h-1/4 w-1/2">
+                <p id="status" className="ml-3 ">
+                  {giveContractState.status}
+                </p>
+              </div>
+
+              <div className="flex flex-row justify-center items-center m-3 bg-light-gray rounded-lg  h-1/4 w-1/2">
+                <label htmlFor="time" className="mr-3">
+                  Time waited
+                </label>
+                {giveContractState.status === "waiting" ? <CounterGive /> : 0}
+              </div>
+            </div>
+          </div>
+
+          <div className="flex flex-col m-3 items-center justify-center h-2/5 w-3/4 bg-blue-100 rounded-lg">
+            <table className="table-auto border-solid border-4 border-blue-400">
+              <tbody>
+                <tr className="border-solid border-2 border-blue-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Status
+                  </th>
+                  <td>Success</td>
+                </tr>
+                <tr className="border-solid border-2 border-blue-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    TransactionId
+                  </th>
+                  <td>32839293879283798</td>
+                </tr>
+                <tr className="border-solid border-2 border-blue-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    ADA Sent
+                  </th>
+                  <td>200</td>
+                </tr>
+                <tr className="border-solid border-2 border-blue-400">
+                  <th
+                    scope="row"
+                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                  >
+                    Time Waited
+                  </th>
+                  <td>10</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       )}
     </Formik>
-)};
+  );
+};
 
 export default VestingGive;
