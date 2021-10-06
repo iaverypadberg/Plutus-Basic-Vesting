@@ -56,6 +56,14 @@ const NavBar = () => {
                     Home
                   </Link>
                 </div>
+                <div className="hidden md:ml-6 md:flex md:space-x-8">
+                  <Link
+                    to={"/about"}
+                    className="border-indigo-500 text-light-gray font-bold inline-flex hover:text-white items-center px-1 pt-1 text-sm font-medium"
+                  >
+                    About
+                  </Link>
+                </div>
               </div>
               <div className="flex items-center">
                 <div className="flex-shrink-0">

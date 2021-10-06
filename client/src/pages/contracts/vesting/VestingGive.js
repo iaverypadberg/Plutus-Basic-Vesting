@@ -44,7 +44,7 @@ const VestingGive = () => {
           <Form className="flex flex-col justify-center m-3 items-center bg-blue-100 h-2/5 w-3/4 rounded-lg">
             
             <Field
-              className="border-2 m-1"
+              className="m-1 bg-light-gray"
               placeholder="beneficiary(hex)"
               name="beneficiary"
             />
@@ -54,7 +54,7 @@ const VestingGive = () => {
           ) : null} */}
 
             <Field
-              className="border-2 m-1"
+              className="m-1 select-none bg-light-gray"
               placeholder="amount(int)"
               name="amount"
             />
@@ -62,7 +62,7 @@ const VestingGive = () => {
             {/* {errors.amount && touched.amount ? <div>{errors.amount}</div> : null} */}
 
             <Field
-              className="border-2 m-1"
+              className="m-1 bg-light-gray"
               placeholder="deadline(int)"
               name="deadline"
             />

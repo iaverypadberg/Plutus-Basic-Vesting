@@ -8,6 +8,7 @@ import VestingMain from "./pages/contracts/VestingMain"
 import Mint from "./pages/contracts/Mint"
 import CounterOne from "./utils/Counter"
 import CompleteHook from "./utils/Counter2"
+import About from "./pages/About"
 
 
 import { useContext, useState } from "react"
@@ -25,10 +26,15 @@ function App() {
       <Route path="/counter" component={CounterOne}/>
       <Route path="/counterTwo" component={CompleteHook}/>
 
-      <Protected path="/contracts" exact component={Contracts}/>
+      {/* <Protected path="/contracts" exact component={Contracts}/>
       <Protected path="/home" component={Home}/>
       <Protected path="/contracts/vesting" component={VestingMain}/>
-      <Protected path="/contracts/mint" component={Mint}/>
+      <Protected path="/contracts/mint" component={Mint}/> */}
+      <Route path="/contracts" exact component={Contracts}/>
+      <Route path="/home" component={Home}/>
+      <Route path="/contracts/vesting" component={VestingMain}/>
+      <Route path="/contracts/mint" component={Mint}/>
+      <Route path="/about" component={About}/>
 
     </Router>
   );
